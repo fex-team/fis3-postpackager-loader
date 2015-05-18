@@ -1,0 +1,23 @@
+{
+  "name": "fis3-postpackager-loader",
+  "version": "1.0.0",
+  "description": "resouce loader",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fex-team/fis3-postpackager-loader.git"
+  },
+  "keywords": [
+    "fis3",
+    "loader"
+  ],
+  "author": "fis",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/fex-team/fis3-postpackager-loader/issues"
+  },
+  "homepage": "https://github.com/fex-team/fis3-postpackager-loader"
+}
