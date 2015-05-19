@@ -63,9 +63,10 @@ rudePackager.defaultOptions = {
 
   // 资源表格式。
   // 可选：
+  // - `auto` 根据用户选择的 js 来自动设置。
   // - `mod` 生成适合 mod.js 的版本。
   // - `amd` 生成适合 require.js 的版本。
-  resouceType: 'mod',
+  resouceType: 'auto',
 
   // 页面类型
   // 可选：
@@ -85,7 +86,10 @@ rudePackager.defaultOptions = {
   obtainScript: true,
 
   // 是否捕获页面内的 <link ref="stylesheet"></link>
-  obtainStyle: true
+  obtainStyle: true,
+
+  // 生成的 resoucemap 是内联呢？还是生成 js 文件外链1？
+  useInlineMap: false
 };
 
 module.exports = rudePackager;
