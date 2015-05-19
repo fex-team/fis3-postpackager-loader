@@ -89,7 +89,7 @@ rudePackager.defaultOptions = {
   obtainStyle: true,
 
   // 生成的 resoucemap 是内联呢？还是生成 js 文件外链1？
-  useInlineMap: true
+  useInlineMap: false
 };
 
 module.exports = rudePackager;
