@@ -46,8 +46,8 @@ function rudePackager(ret, pack, settings, opt) {
       allInOnePack(file, resouce, ret, settings.allInOne === true ? {} : settings.allInOne);
     }
 
+    processor.before && processor.before(file, resouce, settings);
     processor(file, resouce, settings);
-
     processor.after && processor.after(file, resouce, settings);
   });
 }
