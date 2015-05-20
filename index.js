@@ -1,6 +1,9 @@
 var createResouce = require('./lib/resource.js');
 var allInOnePack = require('./lib/pack.js');
 
+/**
+ * 粗暴的打包器，纯前端嘛，不能识别模板语言，所以处理所有分析到的资源。
+ */
 function rudePackager(ret, pack, settings, opt) {
   var files = ret.src;
 
@@ -21,9 +24,12 @@ function rudePackager(ret, pack, settings, opt) {
       return;
     }
 
-    var resouce = createResouce(ret, file);
-    var processor = rudePackager.lang[settings.processor[file.ext]] || rudePackager.lang.html;
+    var processor = rudePackager.lang[settings.processor[file.ext]];
+    if (!processor) {
+      return;
+    }
 
+    var resouce = createResouce(ret, file);
     processor.init && processor.init(file, resouce, settings);
 
     file.requires.forEach(function(id) {
@@ -34,7 +40,7 @@ function rudePackager(ret, pack, settings, opt) {
       resouce.add(id, true);
     });
 
-    processor.before && processor.before(file, resouce, settings);
+    processor.beforePack && processor.beforePack(file, resouce, settings);
 
     if (settings.allInOne) {
       allInOnePack(file, resouce, ret, settings.allInOne === true ? {} : settings.allInOne);
@@ -83,12 +89,14 @@ rudePackager.defaultOptions = {
   }*/,
 
   // 是否捕获页面内的 <script src="xxx"> 资源
+  // 捕获完后，会合并部分资源, 统一放在页面底部。
   obtainScript: true,
 
   // 是否捕获页面内的 <link ref="stylesheet"></link>
+  // 捕获后，会合并部分资源，统一放在页首。
   obtainStyle: true,
 
-  // 生成的 resoucemap 是内联呢？还是生成 js 文件外链1？
+  // 生成的 resoucemap 是内联呢？还是生成 js 文件外链？
   useInlineMap: false
 };
 
