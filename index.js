@@ -1,4 +1,4 @@
-var createResouce = require('./lib/resource.js');
+var createResource = require('./lib/resource.js');
 var allInOnePack = require('./lib/pack.js');
 
 /**
@@ -30,26 +30,18 @@ function rudePackager(ret, pack, settings, opt) {
       return;
     }
 
-    var resouce = createResouce(ret, file);
-    processor.init && processor.init(file, resouce, settings);
+    var resource = createResource(ret, file);
+    processor.init && processor.init(file, resource, settings);
 
-    file.requires.forEach(function(id) {
-      resouce.add(id);
-    });
-
-    file.asyncs.forEach(function(id) {
-      resouce.add(id, true);
-    });
-
-    processor.beforePack && processor.beforePack(file, resouce, settings);
+    processor.beforePack && processor.beforePack(file, resource, settings);
 
     if (settings.allInOne) {
-      allInOnePack(file, resouce, ret, settings.allInOne === true ? {} : settings.allInOne);
+      allInOnePack(file, resource, ret, settings.allInOne === true ? {} : settings.allInOne);
     }
 
-    processor.before && processor.before(file, resouce, settings);
-    processor(file, resouce, settings);
-    processor.after && processor.after(file, resouce, settings);
+    processor.before && processor.before(file, resource, settings);
+    processor(file, resource, settings);
+    processor.after && processor.after(file, resource, settings);
   });
 }
 
@@ -66,14 +58,14 @@ rudePackager.defaultOptions = {
   stylePlaceHolder: '<!--STYLE_PLACEHOLDER-->',
 
   // 资源占位符
-  resoucePlaceHolder: '<!--RESOURCEMAP_PLACEHOLDER-->',
+  resourcePlaceHolder: '<!--RESOURCEMAP_PLACEHOLDER-->',
 
   // 资源表格式。
   // 可选：
   // - `auto` 根据用户选择的 js 来自动设置。
   // - `mod` 生成适合 mod.js 的版本。
   // - `amd` 生成适合 require.js 的版本。
-  resouceType: 'auto',
+  resourceType: 'auto',
 
   // 页面类型
   // 可选：
@@ -97,7 +89,7 @@ rudePackager.defaultOptions = {
   // 捕获后，会合并部分资源，统一放在页首。
   obtainStyle: true,
 
-  // 生成的 resoucemap 是内联呢？还是生成 js 文件外链？
+  // 生成的 resourcemap 是内联呢？还是生成 js 文件外链？
   useInlineMap: false
 };
 
