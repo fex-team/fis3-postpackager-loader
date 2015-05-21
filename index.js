@@ -18,6 +18,7 @@ function rudePackager(ret, pack, settings, opt) {
 
   Object.keys(files).forEach(function(subpath) {
     var file = files[subpath];
+    file._rudeBackup = file.getContent();
 
     // 只处理 html like 的文件。
     if (!file.isHtmlLike) {
