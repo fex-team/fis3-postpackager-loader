@@ -18,7 +18,6 @@ function rudePackager(ret, pack, settings, opt) {
 
   Object.keys(files).forEach(function(subpath) {
     var file = files[subpath];
-    file._rudeBackup = file.getContent();
 
     // 只处理 html like 的文件。
     if (!file.isHtmlLike) {
@@ -29,6 +28,9 @@ function rudePackager(ret, pack, settings, opt) {
     if (!processor) {
       return;
     }
+
+    // 修改之前先，先备份。
+    file._rudeBackup = file.getContent();
 
     var resource = createResource(ret, file);
     processor.init && processor.init(file, resource, settings);
