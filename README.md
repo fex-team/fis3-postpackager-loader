@@ -20,6 +20,7 @@ fis.match('::packager', {
     allInOne: true
   })
 });
+```
 
 ## 说明
 待补充
@@ -31,6 +32,6 @@ fis.match('::packager', {
 * `resourcePlaceHolder` 默认`<!--RESOURCEMAP_PLACEHOLDER-->`
 * `resourceType` 默认 'auto',
 * `allInOne` 默认 false, 配置是否合并零碎资源。
-* `obtainScript` 
+* `obtainScript`
 * `obtainStyle`
 * `useInlineMap`
