@@ -78,6 +78,7 @@ fis 中对依赖的js 加载，尤其是异步  js，需要一个 js loader。�
 此插件能生成两类 resourcemap. 
 
 1. 给 mod.js 用的，格式如下:
+  
   ```javascript
   require.resourcemap({
     res: {...},
@@ -85,6 +86,7 @@ fis 中对依赖的js 加载，尤其是异步  js，需要一个 js loader。�
   })
   ```
 2. 给 require.js amd loader 用的，格式如下:
+  
   ```javascipt
   require.config({
     paths: {
