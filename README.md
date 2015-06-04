@@ -30,7 +30,7 @@ fis.match('::packager', {
 1. 遍历所有的 html 文件，每个文件单独走以下流程。
 2. 分析 html 内容，插入注释块 `<!--SCRIPT_PLACEHOLDER-->` 到 `</body>` 前面，如果页面里面没有这个注释块的话。
 3. 分析 html 内容，插入注释块 `<!--STYLE_PLACEHOLDER-->` 到 `</head>` 前面，如果页面没有这个注释的话。
-4. 分析源码中 `<script>` 带有 data-loader 属性的资源找出来，如果有的话。把找到的 js 加入队列，并且在该 `<script>` 后面加入 `<!--RESOURCEMAP_PLACEHOLDER-->` 注释块，如果页面里面没有这个注释的话。
+4. 分析源码中 `<script>` 带有 data-loader 属性的或者资源名为[mod.js, require.js, require.js]的资源找出来，如果有的话。把找到的 js 加入队列，并且在该 `<script>` 后面加入 `<!--RESOURCEMAP_PLACEHOLDER-->` 注释块，如果页面里面没有这个注释的话。
 5. 分析源码中 `<script>` 带有 data-framework 属性的资源找出来。把找到的 js 加入队列。
 6. 分析此 html 文件的依赖，以及递归进去查找依赖中的依赖。把分析到的 js 加入到队列，css 加入到队列。
 7. 分析此 html 中 `<script>` 、 `<link>` 和 `<style>` 把搜集到的资源加入队列。
@@ -46,19 +46,19 @@ fis.match('::packager', {
 分两种方式指定依赖：
 
 1. 通过 fis 中的注释指定依赖。
-  
+
   ```
   <!--@require "xxx.js"-->
   ```
-  
+
   更多用法，请查看[声明依赖](https://github.com/fex-team/fis3/wiki/%E5%A3%B0%E6%98%8E%E4%BE%9D%E8%B5%96)
 2. 通过 js 语句指定依赖。
-  
+
   ```javascript
   require('./main');
   ```
   表示此代码所在的文件，依赖当前目录下面的 main.js 文件。
-  
+
 另外依赖又分两种性质，以上都是同步依赖，还有一种异步依赖。
 
 ```javascript
@@ -66,7 +66,7 @@ require(['./main']);
 ```
 
 同步js 是页面加载时加载，而异步js 依赖则是运行时加载，能满足按需加载的需求。
-  
+
 ### 什么是 js loader
 
 fis 中对依赖的js 加载，尤其是异步  js，需要一个 js loader。比如 mod.js 是一个 loader, require.js 也是一种 loader。
@@ -75,10 +75,10 @@ fis 中对依赖的js 加载，尤其是异步  js，需要一个 js loader。�
 
 当有异步依赖的时候，为了让 loader 知道文件所在位置，所以需要需要 resourcemap 信息。
 
-此插件能生成两类 resourcemap. 
+此插件能生成两类 resourcemap.
 
 1. 给 mod.js 用的，格式如下:
-  
+
   ```javascript
   require.resourcemap({
     res: {...},
@@ -86,7 +86,7 @@ fis 中对依赖的js 加载，尤其是异步  js，需要一个 js loader。�
   })
   ```
 2. 给 require.js amd loader 用的，格式如下:
-  
+
   ```javascript
   require.config({
     paths: {
