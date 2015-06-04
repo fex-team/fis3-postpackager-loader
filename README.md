@@ -87,7 +87,7 @@ fis 中对依赖的js 加载，尤其是异步  js，需要一个 js loader。�
   ```
 2. 给 require.js amd loader 用的，格式如下:
   
-  ```javascipt
+  ```javascript
   require.config({
     paths: {
       ...
@@ -100,7 +100,7 @@ fis 中对依赖的js 加载，尤其是异步  js，需要一个 js loader。�
 * `scriptPlaceHolder` 默认 `<!--SCRIPT_PLACEHOLDER-->`
 * `stylePlaceHolder` 默认 `<!--STYLE_PLACEHOLDER-->`
 * `resourcePlaceHolder` 默认`<!--RESOURCEMAP_PLACEHOLDER-->`
-* `resourceType` 默认 'auto',
+* `resourceType` 默认 'auto', 可选 `'mod'`、`'amd'`。
 * `allInOne` 默认 false, 配置是否合并零碎资源。
 * `obtainScript` 是否收集 `<script>` 内容。（非页面依赖部分）
 * `obtainStyle` 是否收集 `<style>` 和 `<link>` 内容。（非页面依赖部分）
