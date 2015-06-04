@@ -39,6 +39,60 @@ fis.match('::packager', {
 
 那么 js 的输出顺序就是：带 `data-loader` 的js，带 resource map 信息的js, 带 `data-framework` 的js，依赖中的 js, 页面中其他 js.
 
+### 疑问解释
+
+#### 什么是页面依赖？
+
+分两种方式指定依赖：
+
+1. 通过 fis 中的注释指定依赖。
+  
+  ```
+  <!--@require "xxx.js"-->
+  ```
+  
+  更多用法，请查看[声明依赖](https://github.com/fex-team/fis3/wiki/%E5%A3%B0%E6%98%8E%E4%BE%9D%E8%B5%96)
+2. 通过 js 语句指定依赖。
+  
+  ```javascript
+  require('./main');
+  ```
+  表示此代码所在的文件，依赖当前目录下面的 main.js 文件。
+  
+另外依赖又分两种性质，以上都是同步依赖，还有一种异步依赖。
+
+```javascript
+requireq(['./main']);
+```
+
+同步js 是页面加载时加载，而异步js 依赖则是运行时加载，能满足按需加载的需求。
+  
+### 什么是 js loader
+
+fis 中对依赖的js 加载，尤其是异步  js，需要一个 js loader。比如 mod.js 是一个 loader, require.js 也是一种 loader。
+
+#### 什么是 resourcemap ?
+
+当有异步依赖的时候，为了让 loader 知道文件所在位置，所以需要需要 resourcemap 信息。
+
+此插件能生成两类 resourcemap. 
+
+1. 给 mod.js 用的，格式如下:
+  ```javascript
+  require.resourcemap({
+    res: {...},
+    pkg: {...}
+  })
+  ```
+2. 给 require.js amd loader 用的，格式如下:
+  ```javascipt
+  require.config({
+    paths: {
+      ...
+    }
+  })
+  ```
+
 ## 配置说明
 
 * `scriptPlaceHolder` 默认 `<!--SCRIPT_PLACEHOLDER-->`
@@ -46,6 +100,6 @@ fis.match('::packager', {
 * `resourcePlaceHolder` 默认`<!--RESOURCEMAP_PLACEHOLDER-->`
 * `resourceType` 默认 'auto',
 * `allInOne` 默认 false, 配置是否合并零碎资源。
-* `obtainScript` 是否收集 script 引用
-* `obtainStyle` 是否收集 style 引用
+* `obtainScript` 是否收集 `<script>` 内容。（非页面依赖部分）
+* `obtainStyle` 是否收集 `<style>` 和 `<link>` 内容。（非页面依赖部分）
 * `useInlineMap` 是否将 sourcemap 作为内嵌脚本输出。
