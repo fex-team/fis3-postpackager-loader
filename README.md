@@ -62,7 +62,7 @@ fis.match('::packager', {
 另外依赖又分两种性质，以上都是同步依赖，还有一种异步依赖。
 
 ```javascript
-requireq(['./main']);
+require(['./main']);
 ```
 
 同步js 是页面加载时加载，而异步js 依赖则是运行时加载，能满足按需加载的需求。
