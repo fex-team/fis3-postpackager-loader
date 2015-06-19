@@ -44,6 +44,8 @@ function rudePackager(ret, pack, settings, opt) {
     processor.before && processor.before(file, resource, settings);
     processor(file, resource, settings);
     processor.after && processor.after(file, resource, settings);
+
+    ret.pkg[file.subpath] = file;
   });
 }
 
