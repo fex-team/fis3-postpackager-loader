@@ -13,7 +13,9 @@ function rudePackager(ret, pack, settings, opt) {
   Object.keys(files).forEach(function(subpath) {
     var file = files[subpath];
     idmapping[file.id] = file;
-    urlmapping[file.getUrl()] = file;
+    if (file.release) {
+      urlmapping[file.getUrl()] = file;
+    }
   });
 
   Object.keys(files).forEach(function(subpath) {
