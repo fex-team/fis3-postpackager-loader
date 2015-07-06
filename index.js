@@ -35,6 +35,14 @@ function rudePackager(ret, pack, settings, opt) {
     var resource = createResource(ret, file);
     processor.init && processor.init(file, resource, settings);
 
+    // all in one 包含异步依赖。
+    if (settings.allInOne && settings.allInOne.includeAsyncs) {
+      // 把所以异步的 js 当同步加载。
+      resource.res.forEach(function(item) {
+        item.async = false;
+      });
+    }
+
     processor.beforePack && processor.beforePack(file, resource, settings);
 
     if (settings.allInOne) {
@@ -69,6 +77,7 @@ rudePackager.defaultOptions = {
   // - `auto` 根据用户选择的 js 来自动设置。
   // - `mod` 生成适合 mod.js 的版本。
   // - `amd` 生成适合 require.js 的版本。
+  // - `cmd` 生成适合 sea.js 的版本
   resourceType: 'auto',
 
   // 页面类型
@@ -82,7 +91,9 @@ rudePackager.defaultOptions = {
   // 如果用户配置 pack，  则 用户配置的 pack 优先。
   allInOne: false/*{
     css: '', // 打包后 css 的文件路径。
-    js: ''  // 打包后 js 的文件路径。
+    js: '',  // 打包后 js 的文件路径。
+    includeAsyncs: false, // 可以配置成
+    ignore: null // 忽略列表，可以配置部分文件不被 all in one. 
   }*/,
 
   // 是否捕获页面内的 <script src="xxx"> 资源

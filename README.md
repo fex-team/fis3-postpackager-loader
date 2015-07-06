@@ -101,6 +101,14 @@ fis 中对依赖的js 加载，尤其是异步  js，需要一个 js loader。�
 * `resourcePlaceHolder` 默认`<!--RESOURCEMAP_PLACEHOLDER-->`
 * `resourceType` 默认 'auto', 可选 `'mod'`、`'amd'`。
 * `allInOne` 默认 false, 配置是否合并零碎资源。
+  
+  allInOne 接收对象配置项。
+
+  - `css` all in one 打包后， css 文件的路径规则。默认为 `pkg/${filepath}_aio.css` 
+  - `js` all in one 打包后， js 文件的路径规则。默认为 `pkg/${filepath}_aio.js`
+  - `includeAsyncs` 默认为 false。all in one 打包，是不包含异步依赖的，不过可以通过把此属性设置成 true，包含异步依赖。
+  - `ignore` 默认为空。如果不希望部分文件被 all in one 打包，请设置 ignore 清单。
+
 * `obtainScript` 是否收集 `<script>` 内容。（非页面依赖部分）
 * `obtainStyle` 是否收集 `<style>` 和 `<link>` 内容。（非页面依赖部分）
 * `useInlineMap` 是否将 sourcemap 作为内嵌脚本输出。
