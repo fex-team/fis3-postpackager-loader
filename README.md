@@ -109,6 +109,20 @@ fis 中对依赖的js 加载，尤其是异步  js，需要一个 js loader。�
   - `includeAsyncs` 默认为 false。all in one 打包，是不包含异步依赖的，不过可以通过把此属性设置成 true，包含异步依赖。
   - `ignore` 默认为空。如果不希望部分文件被 all in one 打包，请设置 ignore 清单。
 
+* `processor` 默认为 `{'.html': 'html'}`, 即支持后缀是 .html 的文件，如果要支持其他后缀，请在此扩展。
+
+  ```js
+  fis.match('::package', {
+    postpackager: fis.plugin('loader', {
+      processor: {
+        '.html': 'html',
+
+        // 支持 markdown 文档
+        '.md': 'html'
+      }
+    })
+  })
+  ```
 * `obtainScript` 是否收集 `<script>` 内容。（非页面依赖部分）
 * `obtainStyle` 是否收集 `<style>` 和 `<link>` 内容。（非页面依赖部分）
 * `useInlineMap` 是否将 sourcemap 作为内嵌脚本输出。
