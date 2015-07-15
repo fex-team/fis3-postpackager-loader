@@ -4,6 +4,8 @@
 ## 注意
 **此插件做前端硬加载，适用于纯前端项目，不适用有后端 loader 的项目。因为不识别模板语言，对于资源的分析和收集，比较的粗暴！！！**
 
+默认会把页面中用到的样式插入在 header 中，脚本插入在 body 底部。如果想修改，请在页面自己插入 `<!--SCRIPT_PLACEHOLDER-->` 和 `<!--STYLE_PLACEHOLDER-->` 占位符来控制位置。
+
 ## 安装
 支持全局安装和局部安装，根据自己的需求来定。
 
@@ -37,6 +39,8 @@ fis.match('::packager', {
 9. 把优化后的结果，即队列中资源，插入到 `<!--SCRIPT_PLACEHOLDER-->` 、 `<!--STYLE_PLACEHOLDER-->` 和 `<!--RESOURCEMAP_PLACEHOLDER-->` 注释块。
 
 那么 js 的输出顺序就是：带 `data-loader` 的js，带 resource map 信息的js, 带 `data-framework` 的js，依赖中的 js, 页面中其他 js.
+
+也就是说，如果你发现资源的加载顺序不符合你的预期时，请加适当的属性来调整资源级别。
 
 ### 疑问解释
 
