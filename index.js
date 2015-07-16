@@ -26,7 +26,7 @@ function rudePackager(ret, pack, settings, opt) {
       return;
     }
 
-    var processor = rudePackager.lang[settings.processor[file.ext]];
+    var processor = rudePackager.lang[file.loaderLang] || rudePackager.lang[settings.processor[file.ext]];
     if (!processor) {
       return;
     }
@@ -95,7 +95,7 @@ rudePackager.defaultOptions = {
     css: '', // 打包后 css 的文件路径。
     js: '',  // 打包后 js 的文件路径。
     includeAsyncs: false, // 可以配置成
-    ignore: null // 忽略列表，可以配置部分文件不被 all in one. 
+    ignore: null // 忽略列表，可以配置部分文件不被 all in one.
   }*/,
 
   // 是否捕获页面内的 <script src="xxx"> 资源

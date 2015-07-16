@@ -21,6 +21,16 @@ fis.match('::packager', {
 });
 ```
 
+## 文件属性
+
+默认 loader 只会以 `html` 的方式处理后缀为 `.html` 的文件，如果希望其他后缀也以  `html` 的方式去处理，请设置 `loaderLang` 属性。
+
+```js
+fis.match('*.md', {
+  loaderLang: 'html'
+});
+```
+
 ## 处理流程说明
 如果你真的很关心的话，以下详细的流程处理介绍。
 
@@ -101,10 +111,10 @@ fis 中对依赖的js 加载，尤其是异步  js，需要一个 js loader。�
 * `resourcePlaceHolder` 默认`<!--RESOURCEMAP_PLACEHOLDER-->`
 * `resourceType` 默认 'auto', 可选 `'mod'`、`'amd'`。
 * `allInOne` 默认 false, 配置是否合并零碎资源。
-  
+
   allInOne 接收对象配置项。
 
-  - `css` all in one 打包后， css 文件的路径规则。默认为 `pkg/${filepath}_aio.css` 
+  - `css` all in one 打包后， css 文件的路径规则。默认为 `pkg/${filepath}_aio.css`
   - `js` all in one 打包后， js 文件的路径规则。默认为 `pkg/${filepath}_aio.js`
   - `includeAsyncs` 默认为 false。all in one 打包，是不包含异步依赖的，不过可以通过把此属性设置成 true，包含异步依赖。
   - `ignore` 默认为空。如果不希望部分文件被 all in one 打包，请设置 ignore 清单。
