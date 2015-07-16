@@ -21,19 +21,14 @@ function rudePackager(ret, pack, settings, opt) {
   Object.keys(files).forEach(function(subpath) {
     var file = files[subpath];
 
-    // 只处理 html like 的文件。
-    if (!file.isHtmlLike) {
-      return;
-    }
-
     compile(file);
   });
 
   function compile(file) {
     var processor = rudePackager.lang[file.loaderLang] || rudePackager.lang[settings.processor[file.ext]];
 
-    // 没有处理器，或者已经处理过了，则跳过。
-    if (!processor || file._resource) {
+    // 非 htmlLike 或者 没有处理器，或者已经处理过了，则跳过。
+    if (!file.isHtmlLike || file.loaderLang === false || !processor || file._resource) {
       return;
     }
 
