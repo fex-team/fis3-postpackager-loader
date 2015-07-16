@@ -26,15 +26,25 @@ function rudePackager(ret, pack, settings, opt) {
       return;
     }
 
+    compile(file);
+  });
+
+  function compile(file) {
     var processor = rudePackager.lang[file.loaderLang] || rudePackager.lang[settings.processor[file.ext]];
-    if (!processor) {
+
+    // 没有处理器，或者已经处理过了，则跳过。
+    if (!processor || file._resource) {
       return;
     }
+
+    // 可以让 processor 调用。
+    processor._compile = compile;
 
     // 修改之前先，先备份。
     file._rudeBackup = file.getContent();
 
     var resource = createResource(ret, file);
+    file._resource = resource;
     processor.init && processor.init(file, resource, settings);
 
     // all in one 包含异步依赖。
@@ -56,7 +66,7 @@ function rudePackager(ret, pack, settings, opt) {
     processor.after && processor.after(file, resource, settings);
 
     ret.pkg[file.subpath] = file;
-  });
+  }
 }
 
 rudePackager.lang = {
