@@ -112,7 +112,9 @@ rudePackager.defaultOptions = {
   obtainStyle: true,
 
   // 生成的 resourcemap 是内联呢？还是生成 js 文件外链？
-  useInlineMap: false
+  useInlineMap: false,
+
+  loaderScripts: ['require.js', 'esl.js', 'mod.js', 'sea.js']
 };
 
 module.exports = rudePackager;
