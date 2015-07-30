@@ -3,13 +3,23 @@
  */
 var fs = require('fs'),
   path   = require('path');
-var fis = require('../../..');
+var fis = require('fis3');
 var _      = fis.util,
   config = fis.config;
 var expect = require('chai').expect;
 var resource = require('../lib/resource.js');
 var pack = require('../lib/pack.js');
 var fis3_postpackager_loader = require('fis3-postpackager-loader');
+var _release = fis.require('command-release/lib/release.js');
+var _deploy = fis.require('command-release/lib/deploy.js');
+
+function release(opts, cb) {
+  opts = opts || {};
+
+  _release(opts, function(error, info) {
+    _deploy(info, cb);
+  });
+}
 
 describe('fis3-hook-module compile:postprocessor', function() {
   var root = path.join(__dirname, 'source');
@@ -17,8 +27,6 @@ describe('fis3-hook-module compile:postprocessor', function() {
   beforeEach(function() {
     fis.media().init();
     fis.config.init();
-    fis.compile.setup();
-
   });
 
   it('compile non-AMD JS file', function() {
@@ -54,22 +62,31 @@ describe('fis3-hook-module compile:postprocessor', function() {
       release: '/static/$0'
     });
 
-    var file = fis.file.wrap(path.join(root, 'main.html'));
-    file.useCache = false;
-    fis.compile(file);
-    var opt = {
-      dest: 'preview',
-      watch: false,
-      live: false,
-      clean: false,
-      unique: false,
-      useLint: false,
-      verbose: false,
-      beforeEach: "",
-      beforeCompile: "",
-      afterEach: ""
-    }
-    fis.release(opt);
+    release({
+      unique: true
+    }, function() {
+      console.log('Done');
+    });
+
+
+    // var file = fis.file.wrap(path.join(root, 'main.html'));
+    // file.useCache = false;
+    // fis.compile(file);
+    // var opt = {
+    //   dest: 'preview',
+    //   watch: false,
+    //   live: false,
+    //   clean: false,
+    //   unique: false,
+    //   useLint: false,
+    //   verbose: false,
+    //   beforeEach: "",
+    //   beforeCompile: "",
+    //   afterEach: ""
+    // }
+    // fis.release(opt, function() {
+    //   console.log('fdf')
+    // });
     //console.log(file.getContent());
 
   });
