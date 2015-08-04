@@ -3,7 +3,7 @@
  */
 var fs = require('fs'),
   path   = require('path');
-var fis = require('fis3');
+var fis = require('../../..');
 var _      = fis.util,
   config = fis.config;
 var expect = require('chai').expect;
@@ -21,7 +21,7 @@ function release(opts, cb) {
   });
 }
 
-describe('fis3-hook-module compile:postprocessor', function() {
+describe('fis3-postpackager-loader ', function() {
   var root = path.join(__dirname, 'source');
   fis.project.setProjectRoot(root);
   beforeEach(function() {
@@ -31,7 +31,7 @@ describe('fis3-hook-module compile:postprocessor', function() {
     _.del(testfile);
   });
 
-  it('compile non-AMD JS file', function() {
+  it('useInlineMap:false', function() {
     fis.match('::packager', {
       postpackager: fis.plugin('loader', {
         allInOne: true,
@@ -89,4 +89,131 @@ describe('fis3-hook-module compile:postprocessor', function() {
     expect(scritp>body&&scritp<body_end).to.be.true;
   });
 
+  it('useInlineMap:true ,ignore:null', function() {
+    fis.match('::packager', {
+      postpackager: fis.plugin('loader', {
+        allInOne: {
+          includeAsyncs: true,
+          css: root+"xpy/static/pkg/a_aio.css"
+        },
+        scriptPlaceHolder: "<!--SCRIPT_PLACEHOLDER-->",
+        stylePlaceHolder: '<!--STYLE_PLACEHOLDER-->',
+        resourcePlaceHolder: '<!--RESOURCEMAP_PLACEHOLDER-->',
+        resourceType: 'auto',
+        processor: {
+          '.html': 'html'
+        },
+        obtainScript: true,
+        obtainStyle: true,
+        useInlineMap: true
+      })
+
+    });
+
+    fis.match('*', {
+      deploy: fis.plugin('local-deliver', {
+        to: root+"/xpy"
+      })
+    })
+
+    fis.match("*.html", {
+      useHash: false,
+      packTo:root+"/xpy/aaaa.html"
+    });
+
+    fis.match("**/*.js", {
+      release: '/static/$0'
+    });
+
+    fis.match("**/*.css", {
+      release: '/static/$0'
+    });
+
+    release({
+      unique: true
+    }, function() {
+      console.log('Done');
+    });
+
+    var str = fis.util.read(path.join(root, 'xpy', 'static', 'pkg', 'main.html_aio.js'));
+    expect(str.indexOf("567")>0).to.be.true;
+    expect(str.indexOf("1234")>0).to.be.true;
+    expect(str.indexOf("wang='1'")>0).to.be.true;
+    expect(str.indexOf("x =1")>0).to.be.true;
+    expect(str.indexOf("abc")>0).to.be.true;
+
+    //expect(file.getContent()).to.be.equal(fis.util.read(path.join(root, 'util','upload', 'maintar.css')));
+    var str2 = fis.util.read(path.join(root, 'xpy', 'main.html'));
+    var link = str2.indexOf("link");
+    var head = str2.indexOf("<head");
+    var head_end = str2.indexOf("</head");
+    expect(link>head&&link<head_end).to.be.true;
+    var scritp = str2.indexOf("script");
+    var body = str2.indexOf("<body");
+    var body_end = str2.indexOf("</body");
+    expect(scritp>body&&scritp<body_end).to.be.true;
+  });
+
+  it('useInlineMap:true , ignore:a.js', function() {
+    fis.match('::packager', {
+      postpackager: fis.plugin('loader', {
+        allInOne: {
+          ignore: '**/a.js',
+          includeAsyncs: true,
+          css: root+"xpy/static/pkg/a_aio.css"
+        },
+        scriptPlaceHolder: "<!--SCRIPT_PLACEHOLDER-->",
+        stylePlaceHolder: '<!--STYLE_PLACEHOLDER-->',
+        resourcePlaceHolder: '<!--RESOURCEMAP_PLACEHOLDER-->',
+        resourceType: 'auto',
+        processor: {
+          '.html': 'html'
+        },
+        obtainScript: true,
+        obtainStyle: true,
+        useInlineMap: true
+      })
+
+    });
+
+    fis.match('*', {
+      deploy: fis.plugin('local-deliver', {
+        to: root+"/xpy"
+      })
+    })
+
+    fis.match("*.html", {
+      useHash: false,
+      packTo:root+"/xpy/aaaa.html"
+    });
+
+    fis.match("**/*.js", {
+      release: '/static/$0'
+    });
+
+    fis.match("**/*.css", {
+      release: '/static/$0'
+    });
+
+    release({
+      unique: true
+    }, function() {
+      console.log('Done');
+    });
+
+    var str = fis.util.read(path.join(root, 'xpy', 'static', 'pkg', 'main.html_aio_2.js'));
+    expect(str.indexOf("567")>0).to.be.true;
+    expect(str.indexOf("abc")>0).to.be.true;
+    expect(str.indexOf("1234")<0).to.be.true;
+    //expect(file.getContent()).to.be.equal(fis.util.read(path.join(root, 'util','upload', 'maintar.css')));
+    var str2 = fis.util.read(path.join(root, 'xpy', 'main.html'));
+    var link = str2.indexOf("link");
+    var head = str2.indexOf("<head");
+    var head_end = str2.indexOf("</head");
+    expect(link>head&&link<head_end).to.be.true;
+    var scritp = str2.indexOf("script");
+    var body = str2.indexOf("<body");
+    var body_end = str2.indexOf("</body");
+    expect(scritp>body&&scritp<body_end).to.be.true;
+  });
 });
