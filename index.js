@@ -42,14 +42,6 @@ function rudePackager(ret, pack, settings, opt) {
     file._resource = resource;
     processor.init && processor.init(file, resource, settings);
 
-    // all in one 包含异步依赖。
-    if (settings.allInOne && settings.allInOne.includeAsyncs) {
-      // 把所以异步的 js 当同步加载。
-      resource.res.forEach(function(item) {
-        item.async = false;
-      });
-    }
-
     processor.beforePack && processor.beforePack(file, resource, settings);
 
     if (settings.allInOne) {
