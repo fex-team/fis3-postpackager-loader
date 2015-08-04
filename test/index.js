@@ -27,6 +27,8 @@ describe('fis3-hook-module compile:postprocessor', function() {
   beforeEach(function() {
     fis.media().init();
     fis.config.init();
+    var testfile = _(root, 'xpy');
+    _.del(testfile);
   });
 
   it('compile non-AMD JS file', function() {
@@ -62,34 +64,29 @@ describe('fis3-hook-module compile:postprocessor', function() {
       release: '/static/$0'
     });
 
+    fis.match("**/*.css", {
+      release: '/static/$0'
+    });
+
     release({
       unique: true
     }, function() {
       console.log('Done');
     });
 
-
-    // var file = fis.file.wrap(path.join(root, 'main.html'));
-    // file.useCache = false;
-    // fis.compile(file);
-    // var opt = {
-    //   dest: 'preview',
-    //   watch: false,
-    //   live: false,
-    //   clean: false,
-    //   unique: false,
-    //   useLint: false,
-    //   verbose: false,
-    //   beforeEach: "",
-    //   beforeCompile: "",
-    //   afterEach: ""
-    // }
-    // fis.release(opt, function() {
-    //   console.log('fdf')
-    // });
-    //console.log(file.getContent());
-
+    var str = fis.util.read(path.join(root, 'xpy', 'static', 'pkg', 'main.html_aio.js'));
+    expect(str.indexOf("567")>0).to.be.true;
+    expect(str.indexOf("1234")>0).to.be.true;
+    //expect(file.getContent()).to.be.equal(fis.util.read(path.join(root, 'util','upload', 'maintar.css')));
+    var str2 = fis.util.read(path.join(root, 'xpy', 'main.html'));
+    var link = str2.indexOf("link");
+    var head = str2.indexOf("<head");
+    var head_end = str2.indexOf("</head");
+    expect(link>head&&link<head_end).to.be.true;
+    var scritp = str2.indexOf("script");
+    var body = str2.indexOf("<body");
+    var body_end = str2.indexOf("</body");
+    expect(scritp>body&&scritp<body_end).to.be.true;
   });
-
 
 });
