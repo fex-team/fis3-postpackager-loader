@@ -9,7 +9,6 @@ var _      = fis.util,
 var expect = require('chai').expect;
 var resource = require('../lib/resource.js');
 var pack = require('../lib/pack.js');
-var fis3_postpackager_loader = require('fis3-postpackager-loader');
 var _release = fis.require('command-release/lib/release.js');
 var _deploy = fis.require('command-release/lib/deploy.js');
 var loader = require('../');
