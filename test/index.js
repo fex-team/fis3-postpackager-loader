@@ -12,6 +12,15 @@ var pack = require('../lib/pack.js');
 var fis3_postpackager_loader = require('fis3-postpackager-loader');
 var _release = fis.require('command-release/lib/release.js');
 var _deploy = fis.require('command-release/lib/deploy.js');
+var loader = require('../');
+
+function wrapLoader(options) {
+  return function(ret, pack, settings, opt) {
+    settings = _.assign({}, loader.defaultOptions);
+    _.assign(settings, options);
+    return loader.call(this, ret, pack, settings, opt);
+  }
+};
 
 function release(opts, cb) {
   opts = opts || {};
@@ -33,7 +42,7 @@ describe('fis3-postpackager-loader ', function() {
 
   it('useInlineMap:false', function() {
     fis.match('::packager', {
-      postpackager: fis.plugin('loader', {
+      postpackager: wrapLoader({
         allInOne: true,
         scriptPlaceHolder: "<!--SCRIPT_PLACEHOLDER-->",
         stylePlaceHolder: '<!--STYLE_PLACEHOLDER-->',
@@ -91,7 +100,7 @@ describe('fis3-postpackager-loader ', function() {
 
   it('useInlineMap:true ,ignore:null', function() {
     fis.match('::packager', {
-      postpackager: fis.plugin('loader', {
+      postpackager: wrapLoader({
         allInOne: {
           includeAsyncs: true,
           css: root+"xpy/static/pkg/a_aio.css"
@@ -156,7 +165,7 @@ describe('fis3-postpackager-loader ', function() {
 
   it('useInlineMap:true , ignore:a.js', function() {
     fis.match('::packager', {
-      postpackager: fis.plugin('loader', {
+      postpackager: wrapLoader({
         allInOne: {
           ignore: '**/a.js',
           includeAsyncs: true,
