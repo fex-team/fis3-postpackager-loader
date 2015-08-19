@@ -6,6 +6,12 @@
 
 默认会把页面中用到的样式插入在 header 中，脚本插入在 body 底部。如果想修改，请在页面自己插入 `<!--SCRIPT_PLACEHOLDER-->` 和 `<!--STYLE_PLACEHOLDER-->` 占位符来控制位置。
 
+此插件会收集所有的资源，如果希望某个资源不被收集，请在资源结尾处如 `</script>` 后面加上 `<!--ignore-->` 注释.
+
+```html
+<script src="lib.js"></script><!--ignore-->
+```
+
 ## 安装
 支持全局安装和局部安装，根据自己的需求来定。
 
