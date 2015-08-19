@@ -12,6 +12,8 @@
 <script src="lib.js"></script><!--ignore-->
 ```
 
+注意：被 ignore 的资源，不会被修改位置，同时也不会参与 allInOne 合并。
+
 ## 安装
 支持全局安装和局部安装，根据自己的需求来定。
 
