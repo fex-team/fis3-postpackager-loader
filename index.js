@@ -1,11 +1,13 @@
 var createResource = require('./lib/resource.js');
 var allInOnePack = require('./lib/pack.js');
+var _ = fis.util;
 
 /**
  * 粗暴的打包器，纯前端嘛，不能识别模板语言，所以处理所有分析到的资源。
  */
 function rudePackager(ret, pack, settings, opt) {
   var files = ret.src;
+  var sources = _.toArray(files);
 
   // 生成映射表，方便快速查找！
   var idmapping = ret.idmapping = {};
@@ -24,6 +26,21 @@ function rudePackager(ret, pack, settings, opt) {
     compile(file);
   });
 
+  function find(reg) {
+    if (files[reg]) {
+      return [files[reg]];
+    } else if (reg === '**') {
+      // do nothing
+    } else if (typeof reg === 'string') {
+      reg = _.glob(reg);
+    }
+
+    return sources.filter(function(file) {
+      reg.lastIndex = 0;
+      return (reg === '**' || reg.test(file.subpath));
+    });
+  }
+
   function compile(file) {
     var processor = rudePackager.lang[file.loaderLang] || rudePackager.lang[settings.processor[file.ext]];
 
@@ -41,6 +58,35 @@ function rudePackager(ret, pack, settings, opt) {
     var resource = createResource(ret, file);
     file._resource = resource;
     processor.init && processor.init(file, resource, settings);
+
+    // 如果有设置需要额外的模块加入到 resouceMap 当中
+    if (settings.include) {
+      var patterns = settings.include;
+      if (!Array.isArray(patterns)) {
+        patterns = [patterns];
+      }
+
+      var list = [];
+      patterns.forEach(function(pattern, index) {
+        var exclude = typeof pattern === 'string' && pattern.substring(0, 1) === '!';
+
+        if (exclude) {
+          pattern = pattern.substring(1);
+
+          // 如果第一个规则就是排除用法，都没有获取结果就排除，这是不合理的用法。
+          // 不过为了保证程序的正确性，在排除之前，通过 `**` 先把所有文件获取到。
+          // 至于性能问题，请用户使用时规避。
+          index === 0 && (list = find('**'));
+        }
+
+        var mathes = find(pattern);
+        list = _[exclude ? 'difference' : 'union'](list, mathes);
+      });
+
+      list.forEach(function(file) {
+        resource.add(file.id, true);
+      });
+    }
 
     processor.beforePack && processor.beforePack(file, resource, settings);
 

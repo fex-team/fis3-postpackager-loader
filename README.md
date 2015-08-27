@@ -140,3 +140,22 @@ fis 中对依赖的js 加载，尤其是异步  js，需要一个 js loader。�
 * `obtainScript` 是否收集 `<script>` 内容。（非页面依赖部分）
 * `obtainStyle` 是否收集 `<style>` 和 `<link>` 内容。（非页面依赖部分）
 * `useInlineMap` 是否将 sourcemap 作为内嵌脚本输出。
+* `include` 默认生成的 sourcemap 只会包含异步依赖的 js, 如果想把一批模块化的 js 加入到 sourcemap 中，请参考一下配置：
+  
+  ```js
+  fis.match('::package', {
+    postpackager: fis.plugin('loader', {
+      include: '/widget/a/**.js'
+    })
+  })
+
+  fis.match('::package', {
+    postpackager: fis.plugin('loader', {
+      include: [
+        '/widget/**.js',
+        '!/widget/a/**.js'
+      ]
+    })
+  })
+  ```
+
