@@ -55,7 +55,7 @@ function rudePackager(ret, pack, settings, opt) {
     // 修改之前先，先备份。
     file._rudeBackup = file.getContent();
 
-    var resource = createResource(ret, file);
+    var resource = createResource(ret, file, settings);
     file._resource = resource;
     processor.init && processor.init(file, resource, settings);
 
