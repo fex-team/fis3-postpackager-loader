@@ -31,15 +31,15 @@ fis.match('::packager', {
 });
 ```
 
-<!-- ## 文件属性
+## 文件属性
 
-默认 loader 只会以 `html` 的方式处理后缀为 `.html` 的文件，如果希望其他后缀也以  `html` 的方式去处理，请设置 `loaderLang` 属性。
+新版本中所有 `isHtmlLike:true` 的资源都会默认采用 html 的方式来处理，比如： `.md`, `.tpl` 或者是更多。如果你希望某类 `isHtmlLike` 为 `true` 的资源，不经过此插件处理，那么请设置 `loaderLang` 属性为 `false`。
 
 ```js
 fis.match('*.md', {
-  loaderLang: 'html'
+  loaderLang: false
 });
-``` -->
+```
 
 ## 处理流程说明
 如果你真的很关心的话，以下详细的流程处理介绍。
