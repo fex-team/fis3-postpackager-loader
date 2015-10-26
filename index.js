@@ -42,10 +42,17 @@ function rudePackager(ret, pack, settings, opt) {
   }
 
   function compile(file) {
-    var processor = rudePackager.lang[file.loaderLang] || rudePackager.lang[settings.processor[file.ext]];
+    var processor = rudePackager.lang[file.loaderLang] ||
+      rudePackager.lang[settings.processor[file.ext]] ||
+      rudePackager.lang.html;
 
     // 非 htmlLike 或者 没有处理器，或者已经处理过了，则跳过。
-    if (!file.isHtmlLike || file.loaderLang === false || !processor || file._resource) {
+    if (file.release === false ||
+        !file.isHtmlLike ||
+        file.loaderLang === false ||
+        file.loaderLang === null ||
+        !processor ||
+        file._resource) {
       return;
     }
 
