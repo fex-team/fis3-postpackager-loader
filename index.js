@@ -97,8 +97,15 @@ function rudePackager(ret, pack, settings, opt) {
 
     processor.beforePack && processor.beforePack(file, resource, settings);
 
+    var opts = settings.allInOne === true ? {} : settings.allInOne;
+    if(settings.jsPacks){
+      resource.calculate();
+      resource.js = [];
+      require('./lib/pack.edu')(file, ret, settings, opts);
+    }
+
     if (settings.allInOne) {
-      allInOnePack(file, resource, ret, settings.allInOne === true ? {} : settings.allInOne);
+      allInOnePack(file, resource, ret, opts);
     }
 
     processor.before && processor.before(file, resource, settings);
