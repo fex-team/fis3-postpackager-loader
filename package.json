@@ -1,6 +1,6 @@
 {
   "name": "fis3-packager-edu-loader",
-  "version": "1.3.5",
+  "version": "1.3.6",
   "description": "resouce loader",
   "main": "index.js",
   "scripts": {
@@ -24,5 +24,8 @@
     "chai": "^3.2.0",
     "fis3": "^3.0.17",
     "mocha": "^2.2.5"
+  },
+  "dependencies": {
+    "fis3-hook-commonjs": "^0.1.2"
   }
 }

@@ -64,7 +64,15 @@ function rudePackager(ret, pack, settings, opt) {
 
     var resource = createResource(ret, file, settings);
     file._resource = resource;
+
+    var opts = settings.allInOne === true ? {} : settings.allInOne;
+    if(settings.jsPacks){
+      require('./lib/pack.edu').pack(file, resource ,ret, settings, opts);
+    }
+
     processor.init && processor.init(file, resource, settings);
+
+
 
     // 如果有设置需要额外的模块加入到 resouceMap 当中
     if (settings.include) {
@@ -97,11 +105,8 @@ function rudePackager(ret, pack, settings, opt) {
 
     processor.beforePack && processor.beforePack(file, resource, settings);
 
-    var opts = settings.allInOne === true ? {} : settings.allInOne;
     if(settings.jsPacks){
-      resource.calculate();
-      resource.js = [];
-      require('./lib/pack.edu')(file, ret, settings, opts);
+      require('./lib/pack.edu').clear(file, resource ,ret, settings, opts);
     }
 
     if (settings.allInOne) {

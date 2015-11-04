@@ -1,27 +1,38 @@
 # fis3-packager-edu-loader
 
-修改自fis3官方提供的`fis3-postpackager-loader`，提供了一个简单的分包的打包方案。
+修改自fis3官方提供的`fis3-postpackager-loader`，提供了一个简单粗暴的分包方案。
 
-增加配置：
+仅适用于特定场景，有任何不良效果请自行修改。
+
+
+安装
+
+> npm install fis3-packager-edu-loader
+
+
+配置
+
 ``` javascript
 fis.match('::package',{
-    packager:[
-        fis.plugin('edu-loader',{
-            resourceType:'mod',
-            allInOne:{},
-            jsPacks:[
-                {
-                    match:/base\.js$/,
-                    ignores:['jquery','badjs'],
-                    useMap: false
-                },{
-                    match:/^mod.main.*?\.js$/,
-                    ignores:['base'],
-                    useMap: true
-                }
-            ]
-        })
-    ]
+  packager:[
+    fis.plugin('edu-loader',{
+      resourceType:'mod',
+      allInOne:{
+        ignoreJsPacks:['base']
+      },
+      jsPacks:[
+        {
+          match:/base\.js$/,
+          ignores:['jquery','badjs'],
+          useMap: false
+        },{
+          match:/^mod.main.*?\.js$/,
+          ignores:['base'],
+          useMap: true
+        }
+      ]
+    })
+  ]
 });
 ```
 
@@ -30,7 +41,14 @@ fis.match('::package',{
 * 分析匹配`match`参数指定的正则的文件的所有依赖
 * 合并打包所有的依赖到该文件
 * 如果useMap参数为true，则将该文件加入到resourceMap
-* 支持`ignores`参数，忽略不加入打包的moduleId或文件id。
+
+另外支持一些额外的配置：
+
+* `jsPacks`支持`ignores`参数，忽略不加入打包的moduleId或文件id。
+* `allInOne`中增加`ignoreJsPacks`参数，只打一个包时，可配置忽略的moduleId或文件id。
+
+
+以上面的示例，忽略了`base`模块，`base`模块依赖`jquery`，那么开启`allInOne`打包pkg时，会忽略掉`jquery`和`base`。
 
 
 注意事项：
@@ -39,6 +57,8 @@ fis.match('::package',{
 * 会覆盖官方loader的resourceMap
 
 
+
+# 以下为官方README内容：
 
 # fis3-postpackager-loader
 静态资源前端加载器，用来分析页面中`使用的`和`依赖的`资源（js或css）, 并将这些资源做一定的优化后插入页面中。如把零散的文件合并。
