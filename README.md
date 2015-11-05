@@ -5,6 +5,13 @@
 仅适用于特定场景，有任何不良效果请自行修改。
 
 
+20151105更新：
+
+* 支持asyncPacks参数，开启异步打包
+* 支持asyncPacksIgnore参数设置异步打包忽略模块。
+
+
+
 安装
 
 > npm install fis3-packager-edu-loader
@@ -30,7 +37,9 @@ fis.match('::package',{
           ignores:['base'],
           useMap: true
         }
-      ]
+      ],
+      asyncPacks:true, // 是否异步打包
+      asyncPacksIgnore:['base'], // 异步打包忽略模块
     })
   ]
 });

@@ -5,3 +5,7 @@ require('./modal');
 require('./jquery.upload');
 
 console.log('mod.main');
+
+require(['./ckeditor','./ckeditor.jquery'],function(){
+    console.log('async ckeditor');
+});

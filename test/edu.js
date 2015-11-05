@@ -85,6 +85,8 @@ describe('fis3-postpackager-loader ', function () {
                         useMap: true
                     }
                 ],
+                asyncPacks:true, // 是否异步打包
+                asyncPacksIgnore:['base'], // 异步打包忽略模块
                 scriptPlaceHolder: "<!--SCRIPT_PLACEHOLDER-->",
                 stylePlaceHolder: '<!--STYLE_PLACEHOLDER-->',
                 resourcePlaceHolder: '<!--RESOURCEMAP_PLACEHOLDER-->',
@@ -180,6 +182,13 @@ describe('fis3-postpackager-loader ', function () {
         expect(str.indexOf("mod.main.info.js") > 0).to.be.true;
         expect(str.indexOf("jquery.js") < 0).to.be.true;
         expect(str.indexOf("tvp.js") < 0).to.be.true;
+
+
+        str = fis.util.read(path.join(root, 'xpy', 'static', 'ckeditor.js'));
+        expect(str.indexOf("ckeditor.dep.js") > 0).to.be.true;
+
+        str = fis.util.read(path.join(root, 'xpy', 'index.html'));
+        expect(str.indexOf("http://7.url.cn/edu/static/ckeditor.js") > 0).to.be.true;
 
         //expect(file.getContent()).to.be.equal(fis.util.read(path.join(root, 'util','upload', 'maintar.css')));
 

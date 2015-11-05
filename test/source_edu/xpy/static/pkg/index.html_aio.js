@@ -36,6 +36,9 @@
   
   console.log('mod.main');
   
+  require(['ckeditor','ckeditor.jquery'],function(){
+      console.log('async ckeditor');
+  });
 
 });
 
@@ -43,5 +46,7 @@
 ;define('tvp', function(require, exports, module) {
 
   console.log('tvp.js');
+  
+  require('http://qq.com/player.js');
 
 });

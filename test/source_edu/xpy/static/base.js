@@ -17,5 +17,8 @@
   
   console.log('base');
   
+  require('http://qq.com/tvp.js');
+  require('https://qq.com/httpssss.js');
+  require('http://qzs.qq.com/tencentvideo_v1/tvu/js/ftnh5/tvu.uploader.js');
 
 });
