@@ -4,6 +4,10 @@
 
 仅适用于特定场景，有任何不良效果请自行修改。
 
+20151106更新：
+
+* 支持paths参数，配置需要加入到resourceMap的模块id和对应的url
+
 
 20151105更新：
 
@@ -40,6 +44,9 @@ fis.match('::package',{
       ],
       asyncPacks:true, // 是否异步打包
       asyncPacksIgnore:['base'], // 异步打包忽略模块
+      paths:{
+        'ckeditor':'http://7.url.cn/ckeditor/ckeditor.js'
+      }
     })
   ]
 });
