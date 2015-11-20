@@ -49,7 +49,7 @@ fis.match('*.md', {
 1. 遍历所有的 html 文件，每个文件单独走以下流程。
 2. 分析 html 内容，插入注释块 `<!--SCRIPT_PLACEHOLDER-->` 到 `</body>` 前面，如果页面里面没有这个注释块的话。
 3. 分析 html 内容，插入注释块 `<!--STYLE_PLACEHOLDER-->` 到 `</head>` 前面，如果页面没有这个注释的话。
-4. 分析源码中 `<script>` 带有 data-loader 属性的或者资源名为[mod.js, require.js, require.js]的资源找出来，如果有的话。把找到的 js 加入队列，并且在该 `<script>` 后面加入 `<!--RESOURCEMAP_PLACEHOLDER-->` 注释块，如果页面里面没有这个注释的话。
+4. 分析源码中 `<script>` 带有 data-loader 属性的或者资源名为[mod.js, require.js, sea.js, system.js]的资源找出来，如果有的话。把找到的 js 加入队列，并且在该 `<script>` 后面加入 `<!--RESOURCEMAP_PLACEHOLDER-->` 注释块，如果页面里面没有这个注释的话。
 5. 分析源码中 `<script>` 带有 data-framework 属性的资源找出来。把找到的 js 加入队列。
 6. 分析此 html 文件的依赖，以及递归进去查找依赖中的依赖。把分析到的 js 加入到队列，css 加入到队列。
 7. 分析此 html 中 `<script>` 、 `<link>` 和 `<style>` 把搜集到的资源加入队列。
