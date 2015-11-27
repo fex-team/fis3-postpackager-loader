@@ -45,7 +45,9 @@ function rudePackager(ret, pack, settings, opt) {
     var processor = rudePackager.lang[file.loaderLang] ||
       rudePackager.lang[settings.processor[file.ext]] ||
       rudePackager.lang.html;
-
+    if(settings.jsPacks){
+      require('./lib/pack.edu').pack(ret, settings);
+    }
     // 非 htmlLike 或者 没有处理器，或者已经处理过了，则跳过。
     if (file.release === false ||
         !file.isHtmlLike ||
@@ -66,9 +68,7 @@ function rudePackager(ret, pack, settings, opt) {
     file._resource = resource;
 
     var opts = settings.allInOne === true ? {} : settings.allInOne;
-    if(settings.jsPacks){
-      require('./lib/pack.edu').pack(file, resource ,ret, settings, opts);
-    }
+
 
     processor.init && processor.init(file, resource, settings);
 
@@ -119,6 +119,7 @@ function rudePackager(ret, pack, settings, opt) {
 
     ret.pkg[file.subpath] = file;
   }
+  require('./lib/pack.edu').clearDone();
 }
 
 rudePackager.lang = {
