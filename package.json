@@ -1,6 +1,6 @@
 {
   "name": "fis3-packager-edu-loader",
-  "version": "1.4.5",
+  "version": "1.4.6",
   "description": "resouce loader",
   "main": "index.js",
   "scripts": {
