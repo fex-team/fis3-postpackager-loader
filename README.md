@@ -130,6 +130,7 @@ fis 中对依赖的js 加载，尤其是异步  js，需要一个 js loader。�
   - `js` all in one 打包后， js 文件的路径规则。默认为 `pkg/${filepath}_aio.js`
   - `includeAsyncs` 默认为 false。all in one 打包，是不包含异步依赖的，不过可以通过把此属性设置成 true，包含异步依赖。
   - `ignore` 默认为空。如果不希望部分文件被 all in one 打包，请设置 ignore 清单。
+  - `sourceMap` 默认为 `false`。是否生成 sourcemap.
 
 * `processor` 默认为 `{'.html': 'html'}`, 即支持后缀是 .html 的文件，如果要支持其他后缀，请在此扩展。
 
