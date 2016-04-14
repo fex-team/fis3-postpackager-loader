@@ -31,6 +31,20 @@ fis.match('::packager', {
 });
 ```
 
+## 使用combo
+```
+fis.match('::packager', {
+  postpackager: fis.plugin('loader', {
+    renderMode: {
+      'type': 'combo', //默认是tag
+      maxFiles: 15, //最大文件
+      prefixer: '//xxxx??' //combo服务器地址，或者function
+    }
+  })
+});
+```
+
+
 ## 文件属性
 
 新版本中所有 `isHtmlLike:true` 的资源都会默认采用 html 的方式来处理，比如： `.md`, `.tpl` 或者是更多。如果你希望某类 `isHtmlLike` 为 `true` 的资源，不经过此插件处理，那么请设置 `loaderLang` 属性为 `false`。
@@ -40,6 +54,8 @@ fis.match('*.md', {
   loaderLang: false
 });
 ```
+
+
 
 ## 处理流程说明
 如果你真的很关心的话，以下详细的流程处理介绍。

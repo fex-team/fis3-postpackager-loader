@@ -123,7 +123,10 @@ rudePackager.defaultOptions = {
 
   // 资源占位符
   resourcePlaceHolder: '<!--RESOURCEMAP_PLACEHOLDER-->',
-
+  renderMode: {
+    type: 'tag',
+    maxFiles: 15
+  },
   // 资源表格式。
   // 可选：
   // - `auto` 根据用户选择的 js 来自动设置。
