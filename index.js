@@ -125,7 +125,8 @@ rudePackager.defaultOptions = {
   resourcePlaceHolder: '<!--RESOURCEMAP_PLACEHOLDER-->',
   renderMode: {
     type: 'tag',
-    maxFiles: 15
+    // 最大combo的文件数
+    comboMaxFiles: 15
   },
   // 资源表格式。
   // 可选：

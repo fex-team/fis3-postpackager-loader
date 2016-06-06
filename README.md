@@ -37,7 +37,7 @@ fis.match('::packager', {
   postpackager: fis.plugin('loader', {
     renderMode: {
       'type': 'combo', //默认是tag
-      maxFiles: 15, //最大文件
+      comboMaxFiles: 15, //最大combo文件
       prefixer: '//xxxx??' //combo服务器地址，或者function
     }
   })
