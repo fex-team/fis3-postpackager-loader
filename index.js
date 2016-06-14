@@ -105,7 +105,7 @@ function rudePackager(ret, pack, settings, opt) {
     processor(file, resource, settings);
     processor.after && processor.after(file, resource, settings);
 
-    file.hasAsyncResourceMap && (file.useCache = false); // 让其缓存失效，watch 的时候，下次需要重新发布过去。
+    file.useCache = false; // 让其缓存失效，watch 的时候，下次需要重新发布过去。
     ret.pkg[file.subpath] = file;
   }
 }
