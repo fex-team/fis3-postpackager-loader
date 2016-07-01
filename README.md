@@ -126,6 +126,19 @@ fis 中对依赖的js 加载，尤其是异步  js，需要一个 js loader。�
 
   allInOne 接收对象配置项。
 
+  - `css, js` 可接受函数, 回传file, 可定制化路径规则, 如:  
+  ```js
+    postpackager: fis.plugin('loader', {
+      allInOne: {
+        js: function (file) {
+          return "/static/js/" + file.filename + "_aio.js";
+        },
+        css: function (file) {
+          return "/static/css/" + file.filename + "_aio.css";
+        }
+      }      
+    })
+  ```
   - `css` all in one 打包后， css 文件的路径规则。默认为 `pkg/${filepath}_aio.css`
   - `js` all in one 打包后， js 文件的路径规则。默认为 `pkg/${filepath}_aio.js`
   - `includeAsyncs` 默认为 false。all in one 打包，是不包含异步依赖的，不过可以通过把此属性设置成 true，包含异步依赖。
