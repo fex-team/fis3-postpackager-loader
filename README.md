@@ -131,7 +131,7 @@ fis 中对依赖的js 加载，尤其是异步  js，需要一个 js loader。�
     postpackager: fis.plugin('loader', {
       allInOne: {
         js: function (file) {
-          return "/static/js/pages/" + file.filename + "_aio.js";
+          return "/static/js/" + file.filename + "_aio.js";
         },
         css: function (file) {
           return "/static/css/" + file.filename + "_aio.css";
