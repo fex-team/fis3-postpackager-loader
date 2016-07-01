@@ -126,7 +126,7 @@ fis 中对依赖的js 加载，尤其是异步  js，需要一个 js loader。�
 
   allInOne 接收对象配置项。
 
-  - 'css, js' 可接受函数, 回传file, 可定制化路径规则, 如:  
+  - `css, js` 可接受函数, 回传file, 可定制化路径规则, 如:  
   ```js
     postpackager: fis.plugin('loader', {
       allInOne: {
