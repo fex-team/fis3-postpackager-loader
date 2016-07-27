@@ -51,7 +51,7 @@ fis.match('*.md', {
 3. 分析 html 内容，插入注释块 `<!--STYLE_PLACEHOLDER-->` 到 `</head>` 前面，如果页面没有这个注释的话。
 4. 分析源码中 `<script>` 带有 data-loader 属性的或者资源名为[mod.js, require.js, sea.js, system.js]的资源找出来，如果有的话。把找到的 js 加入队列，并且在该 `<script>` 后面加入 `<!--RESOURCEMAP_PLACEHOLDER-->` 注释块，如果页面里面没有这个注释的话。
 5. 分析源码中 `<script>` 带有 data-framework 属性的资源找出来。把找到的 js 加入队列。
-6. 分析此 html 文件的依赖，以及递归进去查找依赖中的依赖。把分析到的 js 加入到队列，css 加入到队列。
+6. 如果不存在`<!--DEPENDENCIES_INJECT_PLACEHOLDER-->` 注释，则开始分析此 html 文件的依赖，以及递归进去查找依赖中的依赖。把分析到的 js 加入到队列，css 加入到队列。如果存在，则在 7 步骤中处理，遇到注释开始加入依赖。
 7. 分析此 html 中 `<script>` 、 `<link>` 和 `<style>` 把搜集到的资源加入队列。
 8. 启用 allinone 打包，把队列中，挨一起的资源合并。如果是内联内容，直接合并即可，如果是外链文件，则合并文件内容，生成新内容。
 9. 把优化后的结果，即队列中资源，插入到 `<!--SCRIPT_PLACEHOLDER-->` 、 `<!--STYLE_PLACEHOLDER-->` 和 `<!--RESOURCEMAP_PLACEHOLDER-->` 注释块。
@@ -121,6 +121,7 @@ fis 中对依赖的js 加载，尤其是异步  js，需要一个 js loader。�
 * `scriptPlaceHolder` 默认 `<!--SCRIPT_PLACEHOLDER-->`
 * `stylePlaceHolder` 默认 `<!--STYLE_PLACEHOLDER-->`
 * `resourcePlaceHolder` 默认`<!--RESOURCEMAP_PLACEHOLDER-->`
+* `dependenciesInjectPlaceHolder` 默认`<!--DEPENDENCIES_INJECT_PLACEHOLDER-->`
 * `resourceType` 默认 'auto', 可选 `'mod'`、`'amd'`、`'system'`、`'cmd'(sea.js)`。
 * `allInOne` 默认 false, 配置是否合并零碎资源。
 
