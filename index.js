@@ -122,6 +122,8 @@ rudePackager.defaultOptions = {
   // 资源占位符
   resourcePlaceHolder: '<!--RESOURCEMAP_PLACEHOLDER-->',
 
+  dependenciesInjectPlaceHolder: '<!--DEPENDENCIES_INJECT_PLACEHOLDER-->',
+
   // 资源表格式。
   // 可选：
   // - `auto` 根据用户选择的 js 来自动设置。
