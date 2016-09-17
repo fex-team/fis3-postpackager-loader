@@ -146,6 +146,7 @@ fis 中对依赖的js 加载，尤其是异步  js，需要一个 js loader。�
   - `ignore` 默认为空。如果不希望部分文件被 all in one 打包，请设置 ignore 清单。
   - `sourceMap` 默认为 `false`。是否生成 sourcemap.
   - `useTrack`  默认为 `true`. 是否在打包文件中添加track信息
+  - `urglifyJs`  默认为 `false`. 是否在打包文件后使用`uglify-js`压缩js文件（注意：该属性功能与`sourceMap`等属性冲突），配置详细请参见 https://github.com/mishoo/UglifyJS2
 
 * `processor` 默认为 `{'.html': 'html'}`, 即支持后缀是 .html 的文件，如果要支持其他后缀，请在此扩展。
 
