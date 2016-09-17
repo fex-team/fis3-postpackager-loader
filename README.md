@@ -137,7 +137,7 @@ fis 中对依赖的js 加载，尤其是异步  js，需要一个 js loader。�
         css: function (file) {
           return "/static/css/" + file.filename + "_aio.css";
         },
-        //默认`false`. 打包文件后使用`uglify-js`压缩js文件（注意：该属性功能与`sourceMap`等属性冲突），配置详细请参见 https://github.com/mishoo/UglifyJS2
+        //默认`false`. 打包文件后使用`uglify-js`压缩js文件（注意：该功能与`sourceMap`等属性冲突），配置详细请参见 https://github.com/mishoo/UglifyJS2
         urglifyJs: {}
       }
     })
