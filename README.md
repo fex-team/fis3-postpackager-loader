@@ -122,7 +122,7 @@ fis 中对依赖的js 加载，尤其是异步  js，需要一个 js loader。�
 * `stylePlaceHolder` 默认 `<!--STYLE_PLACEHOLDER-->`
 * `resourcePlaceHolder` 默认`<!--RESOURCEMAP_PLACEHOLDER-->`
 * `dependenciesInjectPlaceHolder` 默认`<!--DEPENDENCIES_INJECT_PLACEHOLDER-->`
-* `resourceType` 默认 'auto', 可选 `'mod'`、`'amd'`、`'system'`、`'cmd'(sea.js)`。
+* `resourceType` 默认 'auto', 可选 `'mod'`、`'amd'`、`'system'`、`'commonJs'`、`'cmd'(sea.js)`。
 * `allInOne` 默认 false, 配置是否合并零碎资源。
 
   allInOne 接收对象配置项。
