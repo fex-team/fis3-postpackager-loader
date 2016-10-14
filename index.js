@@ -91,6 +91,10 @@ function rudePackager(ret, pack, settings, opt) {
     var resource = createResource(ret, file, settings);
     file._resource = resource;
     processor.init && processor.init(file, resource, settings);
+    
+    includeList.forEach(function(file) {
+      resource.add(file.id, true);
+    });
 
     processor.beforePack && processor.beforePack(file, resource, settings, includeList);
 
