@@ -26,6 +26,9 @@ build/Release
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
 
+.npmrc
+.yarnrc
+yarn.lock
 
 # 去掉测试产出目录
 /test/source/xpy
