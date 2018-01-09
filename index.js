@@ -147,6 +147,18 @@ rudePackager.defaultOptions = {
     js: '',  // 打包后 js 的文件路径。
     includeAsyncs: false, // 可以配置成 true 用来包含异步依赖。
     ignore: null // 忽略列表，可以配置部分文件不被 all in one.
+    // attrs:
+    // 打包后 css/js 的自定义属性，
+    // 比如：crossorigin="anonymous"。
+    // 允许赋值
+    // 1、字符串（直接添加）。demo: 'crossorigin="anonymous"'
+    // 2、函数（接收参数orignAttr, url）。函数必须返回一个字符串，作为最终的属性输出。
+    // demo: 
+    //  function (orignAttr, url) {
+    //    if (orignAttr.match(/javascript/)) return orignAttr + ' crossorigin="anonymous"';
+    //    return orignAttr;
+    //  }
+    attrs: '',
   }*/,
 
   // 是否捕获页面内的 <script src="xxx"> 资源
