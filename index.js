@@ -147,6 +147,7 @@ rudePackager.defaultOptions = {
     js: '',  // 打包后 js 的文件路径。
     includeAsyncs: false, // 可以配置成 true 用来包含异步依赖。
     ignore: null // 忽略列表，可以配置部分文件不被 all in one.
+    urglifyJs: false, //js文件合成后压缩, 配置见 https://github.com/mishoo/UglifyJS2
   }*/,
 
   // 是否捕获页面内的 <script src="xxx"> 资源
