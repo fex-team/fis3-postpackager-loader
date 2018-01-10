@@ -155,7 +155,9 @@ fis 中对依赖的js 加载，尤其是异步  js，需要一个 js loader。�
         attrs: 'myattr="xxxx"',
       }      
     })
-    // <script type="text/javascript" crossorigin="anonymous" src="xxxx">
+    
+    // 或者
+    // <script type="text/javascript" crossorigin="anonymous" src="xxxx">
     // <link rel="stylesheet" type="text/css" cssattr="xxxx" href="xxxx">
     postpackager: fis.plugin('loader', {
       allInOne: {
