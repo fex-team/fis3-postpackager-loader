@@ -146,7 +146,7 @@ fis 中对依赖的js 加载，尤其是异步  js，需要一个 js loader。�
   - `ignore` 默认为空。如果不希望部分文件被 all in one 打包，请设置 ignore 清单。
   - `sourceMap` 默认为 `false`。是否生成 sourcemap.
   - `useTrack`  默认为 `true`。 是否在打包文件中添加track信息
-  - `attrs` 默认为空。all in one 打包后 `script/link` 的属性自定义。如:  
+  - `attrs` 默认为空。all in one 打包后 `script/link` 的属性自定义。如:  
   ```javascript
     // <script type="text/javascript" myattr="xxxx" src="xxxx">
     // <link rel="stylesheet" type="text/css" myattr="xxxx" href="xxxx">
