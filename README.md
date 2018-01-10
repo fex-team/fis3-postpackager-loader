@@ -145,7 +145,29 @@ fis 中对依赖的js 加载，尤其是异步  js，需要一个 js loader。�
   - `includeAsyncs` 默认为 false。all in one 打包，是不包含异步依赖的，不过可以通过把此属性设置成 true，包含异步依赖。
   - `ignore` 默认为空。如果不希望部分文件被 all in one 打包，请设置 ignore 清单。
   - `sourceMap` 默认为 `false`。是否生成 sourcemap.
-  - `useTrack`  默认为 `true`. 是否在打包文件中添加track信息
+  - `useTrack`  默认为 `true`。 是否在打包文件中添加track信息
+  - `attrs`     默认为空。自定义打包后script/link的attributes，比如给script添加crossorigin="anonymous"。如：
+  ```js
+    // <script type="text/javascript" myattr="xxxx" src="xxxx">
+    // <link rel="stylesheet" type="text/css" myattr="xxxx" href="xxxx">
+    postpackager: fis.plugin('loader', {
+      allInOne: {
+        attrs: 'myattr="xxxx"',
+      }      
+    })
+    
+    // <script type="text/javascript" crossorigin="anonymous" src="xxxx">
+    // <link rel="stylesheet" type="text/css" cssattr="xxxx" href="xxxx">
+    postpackager: fis.plugin('loader', {
+      allInOne: {
+        attrs: function (orignAttr, url) {
+          if (orignAttr.match(/text\/javascript/)) return orignAttr + ' crossorigin="anonymous"';
+          if (orignAttr.match(/text\/css/)) return orignAttr + ' cssattr="xxxx"';
+          return orignAttr;
+        },
+      }      
+    })
+    ```
 
 * `processor` 默认为 `{'.html': 'html'}`, 即支持后缀是 .html 的文件，如果要支持其他后缀，请在此扩展。
 
