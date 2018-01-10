@@ -1,6 +1,6 @@
 {
   "name": "fis3-postpackager-loader",
-  "version": "2.1.9",
+  "version": "2.1.10",
   "description": "resouce loader",
   "main": "index.js",
   "scripts": {
