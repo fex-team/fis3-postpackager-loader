@@ -146,7 +146,7 @@ rudePackager.defaultOptions = {
     css: '', // 打包后 css 的文件路径。
     js: '',  // 打包后 js 的文件路径。
     includeAsyncs: false, // 可以配置成 true 用来包含异步依赖。
-    ignore: null // 忽略列表，可以配置部分文件不被 all in one.
+    ignore: null, // 忽略列表，可以配置部分文件不被 all in one.
     // attrs:
     // 打包后 css/js 的自定义属性，
     // 比如：crossorigin="anonymous"。
